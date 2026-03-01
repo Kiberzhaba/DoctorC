@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Цены на услуги | УЗИ центр Доктор С</title>
+    <meta name="description" content="Полный перечень медицинских услуг и актуальные цены УЗИ центра Доктор С.">
+    <!-- Favicons -->
+    <link rel="icon" type="image/png" href="favicon.png" sizes="32x32">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="android-chrome-192x192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="android-chrome-512x512.png">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <!-- Icons (Phosphor Icons) -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="styles.css?v=17">
+
+    <style>
+        .accordion {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .accordion-item {
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            transition: box-shadow var(--transition-normal);
+        }
+
+        .accordion-item:hover {
+            box-shadow: var(--shadow-md);
+        }
+
+        .accordion-header {
+            padding: 1.25rem 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+            user-select: none;
+            background: #ffffff;
+            transition: background-color var(--transition-short);
+        }
+
+        .accordion-header:hover {
+            background-color: var(--primary-light);
+        }
+
+        .accordion-title-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .accordion-icon {
+            color: var(--primary-color);
+            font-size: 1.5rem;
+            display: flex;
+        }
+
+        .accordion-title {
+            font-family: var(--font-heading);
+            font-weight: 600;
+            font-size: 1.125rem;
+            color: var(--text-dark);
+            margin: 0;
+        }
+
+        .accordion-toggle-icon {
+            color: var(--text-light);
+            transition: transform var(--transition-short);
+        }
+
+        .accordion-item.active .accordion-toggle-icon {
+            transform: rotate(180deg);
+        }
+
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+            background-color: #fafbfc;
+        }
+
+        .accordion-content-inner {
+            padding: 0 1.5rem 1.5rem 1.5rem;
+        }
+
+        .price-list {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.95rem;
+        }
+
+        .price-list tr {
+            border-bottom: 1px solid var(--border-color);
+            transition: background-color 0.2s;
+        }
+
+        .price-list tr:hover {
+            background-color: #f1f5f9;
+        }
+
+        .price-list tr:last-child {
+            border-bottom: none;
+        }
+
+        .price-list td {
+            padding: 1rem 0;
+            vertical-align: middle;
+        }
+
+        .price-code {
+            color: var(--text-light);
+            font-size: 0.85rem;
+            width: 15%;
+            padding-right: 1rem !important;
+            padding-left: 0.5rem !important;
+        }
+
+        .price-name {
+            color: var(--text-main);
+            width: 65%;
+            padding-right: 1rem !important;
+        }
+
+        .price-value {
+            color: var(--text-dark);
+            font-weight: 600;
+            text-align: right;
+            white-space: nowrap;
+            width: 20%;
+            padding-right: 0.5rem !important;
+        }
+
+        .price-notice {
+            text-align: center;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-top: 2rem;
+            font-weight: 500;
+        }
+
+        @media (max-width: 768px) {
+            .price-list {
+                display: block;
+            }
+
+            .price-list tbody,
+            .price-list tr {
+                display: block;
+                width: 100%;
+            }
+
+            .price-list tr {
+                padding: 1rem;
+                border-bottom: 1px solid var(--border-color);
+            }
+
+            .price-list tr:hover {
+                background-color: transparent;
+            }
+
+            .price-list td {
+                display: block;
+                padding: 0.25rem 0 !important;
+                width: 100%;
+                text-align: left;
+            }
+
+            .price-code {
+                margin-bottom: 0.25rem;
+            }
+
+            .price-name {
+                font-weight: 500;
+                margin-bottom: 0.5rem;
+            }
+
+            .price-value {
+                color: var(--primary-color);
+                text-align: left;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Top Utility Bar -->
+    <div class="top-bar">
+        <div class="container top-bar-container">
+            <button id="accessibility-toggle" class="btn-clear accessibility-btn">
+                <i class="ph ph-eye"></i>
+                <span class="acc-text">Версия для слабовидящих</span>
+            </button>
+            <div class="top-bar-address">
+                <i class="ph ph-map-pin"></i>
+                <span>г. Донецк, пр-т Ватутина, д. 43</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sticky Header -->
+    <header id="header" class="header">
+        <div class="container header-container">
+            <a href="index.html" class="logo">
+                <i class="ph ph-heartbeat"></i>
+                <span class="logo-text">Доктор С</span>
+            </a>
+
+            <button class="mobile-toggle" aria-label="Toggle Navigation">
+                <i class="ph ph-list"></i>
+            </button>
+
+            <nav class="nav">
+                <ul class="nav-list">
+                    <li><a href="info.html" class="nav-link">Информация</a></li>
+                    <li><a href="prices.html" class="nav-link active">Цены</a></li>
+                    <li><a href="index.html#specialization" class="nav-link">Специализации</a></li>
+                    <li><a href="index.html#doctors" class="nav-link">Врачи</a></li>
+                    <li><a href="index.html#contacts" class="nav-link">Контакты</a></li>
+                </ul>
+                <a href="tel:+79495554433" class="btn btn-primary header-btn">
+                    <i class="ph ph-phone"></i>
+                    +7 (949) 555-44-33
+                </a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="section" style="padding-top: 120px;">
+            <div class="container">
+                <div class="section-header text-center">
+                    <h1 class="section-title">Цены на услуги</h1>
+                    <p class="section-subtitle">Полный перечень медицинских услуг УЗИ центра Доктор С</p>
+                </div>
+
+                <div
+                    style="background-color: var(--primary-light); padding: 1.5rem; border-radius: var(--border-radius); border-left: 4px solid var(--primary-color); margin-bottom: 2rem;">
+                    <p style="color: var(--primary-dark); font-weight: 500; margin: 0;">
+                        <i class="ph ph-info" style="margin-right: 8px; vertical-align: middle;"></i>
+                        Указанные цены соответствуют официальному прейскуранту ИП Стефаненко А.В.
+                    </p>
+                </div>
+
+                <!-- Price List Accordion -->
+                <div class="accordion">
+
+                    <!-- Category 1 -->
+                    <div class="accordion-item">
+                        <div class="accordion-header" onclick="toggleAccordion(this)">
+                            <div class="accordion-title-wrapper">
+                                <div class="accordion-icon"><i class="ph ph-heart"></i></div>
+                                <h3 class="accordion-title">Органы брюшной полости</h3>
+                            </div>
+                            <div class="accordion-toggle-icon"><i class="ph ph-caret-down"></i></div>
+                        </div>
+                        <div class="accordion-content">
+                            <div class="accordion-content-inner">
+                                <table class="price-list">
+                                    <tbody>
+                                        <tr>
+                                            <td class="price-code">A04.06.001</td>
+                                            <td class="price-name">Ультразвуковое исследование селезенки</td>
+                                            <td class="price-value">1500 ₽</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="price-code">A04.14.001</td>
+                                            <td class="price-name">Ультразвуковое исследование печени</td>
+                                            <td class="price-value">2000 ₽</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="price-code">A04.14.002</td>
+                                            <td class="price-name">Ультразвуковое исследование желчного пузыря и
+                                                протоков</td>
+                                            <td class="price-value">2000 ₽</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="price-code">A04.14.002.001</td>
+                                            <td class="price-name">УЗИ желчного пузыря с определением его сократимости
+                                            </td>
+                                            <td class="price-value">2500 ₽</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="price-code">A04.15.001</td>
+                                            <td class="price-name">Ультразвуковое исследование поджелудочной железы</td>
+                                            <td class="price-value">2000 ₽</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="price-code">A04.16.001</td>
+                                            <td class="price-name">УЗИ органов брюшной полости (комплексное)</td>
+                                            <td class="price-value">2500 ₽</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="price-code">A04.30.004</td>
+                                            <td class="price-name">Ультразвуковое определение жидкости в брюшной полости
+                                            </td>
+                                            <td class="price-value">2500 ₽</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Category 2 -->
+                    <div class="accordion-item">
+                        <div class="accordion-header" onclick="toggleAccordion(this)">
+                            <div class="accordion-title-wrapper">
+                                <div class="accordion-icon"><i class="ph ph-drop"></i></div>
+                                <h3 class="accordion-title">Мочевыделительная и эндокринная системы</h3>
+                            </div>
+                            <div class="accordion-toggle-icon"><i class="ph ph-caret-down"></i></div>
+                        </div>
+                        <div class="accordion-content">
+                            <div class="accordion-content-inner">
+                                <table class="price-list">
+                                    <tbody>
+                                        <tr>
+                                            <td class="price-code">A04.22.001</td>
+                                            <td class="price-name">УЗИ щитовидной железы и паращитовидных желез</td>
+                                            <td class="price-value">2500 ₽</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="price-code">A04.22.002</td>
+                                            <td class="price-name">Ультразвуковое исследование надпочечников</td>
+                                            <td class="price-value">2000 ₽</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="price-code">A04.22.003</td>
+                                            <td class="price-name">Ультразвуковое исследование паращитовидных желез</td>
+                                            <td class="price-value">2000 ₽</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="price-code">A04.28.001</td>
+                                            <td class="price-name">Ультразвуковое исследование почек и надпочечников
+                                            </td>
+                                            <td class="price-value">2000 ₽</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="price-code">A04.28.002.001</td>
+                                            <td class="price-name">Ультразвуковое исследование почек</td>
+                                            <td class="price-value">2000 ₽</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="price-code">A04.28.002.002</td>
+                                            <td class="price-name">Ультразвуковое исследование мочеточников</td>
+                                            <td class="price-value">2000 ₽</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="price-code">A04.28.002.003</td>
+                                            <td class="price-name">Ультразвуковое исследование мочевого пузыря</td>
+                                            <td class="price-value">1500 ₽</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="price-code">A04.28.002.004</td>
+                                            <td class="price-name">Ультразвуковое исследование уретры</td>
+                                            <td class="price-value">2000 ₽</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="price-code">A04.28.002.005</td>
+                                            <td class="price-name">УЗИ мочевого пузыря с определением остаточной мочи
+                                            </td>
+                                            <td class="price-value">1500 ₽</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="price-code">A04.28.002.006</td>
+                                            <td class="price-name">Ультразвуковое исследование почек с функциональной
+                                                нагрузкой</td>
+                                            <td class="price-value">2500 ₽</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Category 3 -->
+                    <div class="accordion-item">
+                        <div class="accordion-header" onclick="toggleAccordion(this)">
+                            <div class="accordion-title-wrapper">
+                                <div class="accordion-icon"><i class="ph ph-wave-sine"></i></div>
+                                <h3 class="accordion-title">Сосудистые исследования (Дуплекс/Триплекс)</h3>
+                            </div>
+                            <div class="accordion-toggle-icon"><i class="ph ph-caret-down"></i></div>
+                        </div>
+                        <div class="accordion-content">
+                            <div class="accordion-content-inner">
+                                <table class="price-list">
+                                    <tbody>
+                                        <tr>
+                                            <td class="price-code">A04.12.001.002</td>
+                                            <td class="price-name">Дуплексное сканирование артерий почек</td>
+                                            <td class="price-value">3500 ₽</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="price-code">A04.12.003</td>
+                                            <td class="price-name">Дуплексное сканирование аорты</td>
+                                            <td class="price-value">2000 ₽</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="price-code">A04.12.003.001</td>
+                                            <td class="price-name">Дуплексное сканирование брюшной аорты и ее
+                                                висцеральных ветвей</td>
+                                            <td class="price-value">2500 ₽</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="price-code">A04.12.003.002</td>
+                                            <td class="price-name">Дуплексное сканирование брюшного отдела аорты и
+                                                подвздошных артерий</td>
+                                            <td class="price-value">2500 ₽</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="price-code">A04.12.005</td>
+                                            <td class="price-name">Дуплексное сканирование сосудов (артерий и вен)
+                                                верхних конечностей</td>
+                                            <td class="price-value">3000 ₽</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="price-code">A04.12.005.002</td>
+                                            <td class="price-name">Дуплексное сканирование артерий верхних конечностей
+                                            </td>
+                                            <td class="price-value">2500 ₽</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="price-code">A04.12.005.005</td>
+                                            <td class="price-name">Дуплексное сканирование экстракраниальных отделов БЦА
+                                            </td>
+                                            <td class="price-value">2500 ₽</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="price-code">A04.12.006</td>
+                                            <td class="price-name">Дуплексное сканирование сосудов (артерий и вен)
+                                                нижних конечностей</td>
+                                            <td class="price-value">3500 ₽</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="price-code">A04.12.006.001</td>
+                                            <td class="price-name">Дуплексное сканирование артерий нижних конечностей
+                                            </td>
+                                            <td class="price-value">2500 ₽</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="price-code">A04.12.006.002</td>
+                                            <td class="price-name">Дуплексное сканирование вен нижних конечностей</td>
+                                            <td class="price-value">2500 ₽</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="price-code">A04.12.015.001</td>
+                                            <td class="price-name">Триплексное сканирование вен нижних конечностей
+                                                (комплексное)</td>
+                                            <td class="price-value">3000 ₽</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="price-code">A04.12.023</td>
+                                            <td class="price-name">Дуплексное сканирование нижней полой и почечных вен
+                                            </td>
+                                            <td class="price-value">2500 ₽</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="price-code">A04.12.026</td>
+                                            <td class="price-name">Дуплексное сканирование нижней полой вены и вен
+                                                портальной системы</td>
+                                            <td class="price-value">2500 ₽</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Category 4 -->
+                    <div class="accordion-item">
+                        <div class="accordion-header" onclick="toggleAccordion(this)">
+                            <div class="accordion-title-wrapper">
+                                <div class="accordion-icon"><i class="ph ph-bone"></i></div>
+                                <h3 class="accordion-title">Мягкие ткани, суставы и нервы</h3>
+                            </div>
+                            <div class="accordion-toggle-icon"><i class="ph ph-caret-down"></i></div>
+                        </div>
+                        <div class="accordion-content">
+                            <div class="accordion-content-inner">
+                                <table class="price-list">
+                                    <tbody>
+                                        <tr>
+                                            <td class="price-code">A04.01.001</td>
+                                            <td class="price-name">Ультразвуковое исследование мягких тканей (одна зона)
+                                            </td>
+                                            <td class="price-value">2500 ₽</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="price-code">A04.04.001</td>
+                                            <td class="price-name">Ультразвуковое исследование сустава</td>
+                                            <td class="price-value">2500 ₽</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="price-code">A04.04.001.001</td>
+                                            <td class="price-name">Ультразвуковое исследование тазобедренного сустава
+                                            </td>
+                                            <td class="price-value">2500 ₽</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="price-code">A04.04.002</td>
+                                            <td class="price-name">Ультразвуковое исследование сухожилий</td>
+                                            <td class="price-value">2500 ₽</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="price-code">A04.06.002</td>
+                                            <td class="price-name">Ультразвуковое исследование лимфатических узлов</td>
+                                            <td class="price-value">2500 ₽</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="price-code">A04.07.002</td>
+                                            <td class="price-name">Ультразвуковое исследование слюнных желез</td>
+                                            <td class="price-value">2500 ₽</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="price-code">A04.09.001</td>
+                                            <td class="price-name">Ультразвуковое исследование плевральной полости</td>
+                                            <td class="price-value">2500 ₽</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="price-code">A04.24.001</td>
+                                            <td class="price-name">Ультразвуковое исследование периферических нервов
+                                            </td>
+                                            <td class="price-value">2500 ₽</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="price-code">A04.26.002</td>
+                                            <td class="price-name">Ультразвуковое исследование глазного яблока</td>
+                                            <td class="price-value">2000 ₽</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Category 5 -->
+                    <div class="accordion-item">
+                        <div class="accordion-header" onclick="toggleAccordion(this)">
+                            <div class="accordion-title-wrapper">
+                                <div class="accordion-icon"><i class="ph ph-gender-intersex"></i></div>
+                                <h3 class="accordion-title">Репродуктивная система (Мужское и женское здоровье)</h3>
+                            </div>
+                            <div class="accordion-toggle-icon"><i class="ph ph-caret-down"></i></div>
+                        </div>
+                        <div class="accordion-content">
+                            <div class="accordion-content-inner">
+                                <table class="price-list">
+                                    <tbody>
+                                        <tr>
+                                            <td class="price-code">A04.20.001</td>
+                                            <td class="price-name">УЗИ матки и придатков (трансабдоминальное)</td>
+                                            <td class="price-value">2500 ₽</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="price-code">A04.20.001.002</td>
+                                            <td class="price-name">УЗИ матки и придатков (трансректальное)</td>
+                                            <td class="price-value">2500 ₽</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="price-code">A04.20.001.004</td>
+                                            <td class="price-name">Ультразвуковое исследование шейки матки
+                                                (УЗ-цервикометрия)</td>
+                                            <td class="price-value">2500 ₽</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="price-code">A04.20.002.002</td>
+                                            <td class="price-name">УЗИ молочных желез с допплеровским исследованием</td>
+                                            <td class="price-value">2500 ₽</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="price-code">A04.20.003</td>
+                                            <td class="price-name">Ультразвуковое исследование фолликулогенеза</td>
+                                            <td class="price-value">2000 ₽</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="price-code">A04.21.001</td>
+                                            <td class="price-name">Ультразвуковое исследование предстательной железы
+                                            </td>
+                                            <td class="price-value">2000 ₽</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="price-code">A04.21.001.001</td>
+                                            <td class="price-name">Ультразвуковое исследование предстательной железы
+                                                (трансректальное)</td>
+                                            <td class="price-value">2500 ₽</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="price-code">A04.28.003</td>
+                                            <td class="price-name">Ультразвуковое исследование органов мошонки</td>
+                                            <td class="price-value">2500 ₽</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="price-code">A04.30.010</td>
+                                            <td class="price-name">УЗИ органов малого таза комплексное (ТВУЗИ+ТАУЗИ)
+                                            </td>
+                                            <td class="price-value">2500 ₽</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Preparation Section -->
+                <div class="section-header text-center" style="margin-top: 4rem; margin-bottom: 2rem;">
+                    <h2 class="section-title" style="font-size: 1.75rem;">Подготовка к исследованию</h2>
+                </div>
+
+                <div class="about-grid" style="margin-bottom: 3rem;">
+                    <div class="about-card">
+                        <div class="icon-wrapper primary"><i class="ph ph-heart"></i></div>
+                        <h3 class="card-title">Брюшная полость</h3>
+                        <p class="card-text">Строго натощак (6-8 часов голода).</p>
+                    </div>
+                    <div class="about-card">
+                        <div class="icon-wrapper accent"><i class="ph ph-drop"></i></div>
+                        <h3 class="card-title">Мочевой пузырь</h3>
+                        <p class="card-text">За 1 час до визита выпить 1 л воды.</p>
+                    </div>
+                    <div class="about-card">
+                        <div class="icon-wrapper"><i class="ph ph-info"></i></div>
+                        <h3 class="card-title">Другие зоны</h3>
+                        <p class="card-text">Специальная подготовка не требуется.</p>
+                    </div>
+                </div>
+
+                <div class="price-notice">
+                    Цены указаны в соответствии с действующим прейскурантом ИП Стефаненко А.В. Не является публичной
+                    офертой.
+                </div>
+
+                <!-- Mandatory Legal Notice -->
+                <div
+                    style="background-color: var(--bg-light); padding: 1.5rem; border-radius: var(--border-radius); border: 1px solid var(--border-color); margin-top: 2rem; text-align: center;">
+                    <p style="color: var(--text-muted); font-size: 0.85rem; margin: 0; line-height: 1.5;">
+                        Информируем о возможности получения бесплатной медицинской помощи в рамках программы госгарантий
+                        в государственных учреждениях здравоохранения.
+                    </p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-column brand">
+                    <span class="logo-text">Доктор С</span>
+                    <span class="copyright">© 2026 Все права защищены.</span>
+                </div>
+                <div class="footer-column links">
+                    <ul
+                        style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.5rem;">
+                        <li><a href="info.html">Информация</a></li>
+                        <li><a href="info.html#privacy-policy">Политика конфиденциальности</a></li>
+                        <li><a href="prices.html">Цены</a></li>
+                        <li><a href="index.html#specialization">Специализации</a></li>
+                        <li><a href="index.html#doctors">Врачи</a></li>
+                        <li><a href="index.html#contacts">Контакты</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column legal">
+                    <span>Email для обращений: <br><a href="mailto:artemstefanenko95@gmail.com"
+                            style="color: inherit; text-decoration: underline;">artemstefanenko95@gmail.com</a></span>
+                    <span style="margin-top: 0.5rem;">ИП Стефаненко А.В. <br> ИНН 614338727702 <br> ОГРНИП
+                        325930100073500</span>
+                </div>
+            </div>
+            <div class="footer-disclaimer">
+                *Сайт носит информационный характер и не является публичной офертой.
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js?v=17"></script>
+    <script>
+        function toggleAccordion(header) {
+            const item = header.closest('.accordion-item');
+            const content = item.querySelector('.accordion-content');
+            const isActive = item.classList.contains('active');
+
+            // Close all accordions
+            const allItems = document.querySelectorAll('.accordion-item');
+            allItems.forEach(acc => {
+                acc.classList.remove('active');
+                acc.querySelector('.accordion-content').style.maxHeight = null;
+            });
+
+            // Open the clicked one if it wasn't active
+            if (!isActive) {
+                item.classList.add('active');
+                content.style.maxHeight = content.scrollHeight + "px";
+            }
+        }
+    </script>
+</body>
+
+</html>
