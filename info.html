@@ -23,7 +23,7 @@
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
 
     <!-- CSS -->
-    <link rel="stylesheet" href="styles.css?v=17">
+    <link rel="stylesheet" href="styles.css?v=21">
 </head>
 
 <body>
@@ -105,7 +105,7 @@
                         <h3 class="card-title">График приема граждан</h3>
                         <p class="card-text">
                             Личный прием ведет руководитель (ИП Стефаненко А.В.)<br><br>
-                            Понедельник — Суббота: с <strong>08:00 до 18:00</strong><br><br>
+                            Понедельник, Четверг: с <strong>12:00 до 16:00</strong><br><br>
                             <em>Прием осуществляется по предварительной записи по телефону: +7 (949) 555-44-33</em>
                         </p>
                     </div>
@@ -127,7 +127,14 @@
                         <div class="doctor-info">
                             <h3 class="doctor-name">Стефаненко Оксана Васильевна</h3>
                             <div class="doctor-title">Врач высшей категории</div>
-                            <p class="doctor-bio mt-2">Информация об образовании и квалификации будет добавлена позже.
+                            <p class="doctor-bio mt-2" style="font-size: 0.9rem; text-align: left;">
+                                <strong>Высшее образование:</strong> Донецкий национальный медицинский университет им.
+                                М. Горького, 1994 г.<br>Специальность: «Ультразвуковая диагностика».<br><br>
+                                <strong>Категория:</strong> Врач высшей квалификационной категории.<br><br>
+                                <strong>Подтверждение квалификации:</strong> Протокол специального экзамена (Кубанский
+                                ГМУ, г. Краснодар), 2022 г.<br><br>
+                                <strong>Опыт:</strong> Экс-главный республиканский специалист МЗ ДНР по УЗД. Стаж работы
+                                более 30 лет.
                             </p>
                             <button class="btn btn-outline cert-btn" data-doctor="oks">
                                 <i class="ph ph-certificate"></i> Сертификаты
@@ -255,7 +262,28 @@
         </div>
     </footer>
 
-    <script src="script.js?v=17"></script>
+    <!-- Certificates Lightbox -->
+    <div id="cert-lightbox" class="lightbox-overlay" style="display: none;">
+        <button class="lightbox-close" aria-label="Close Lightbox">
+            <i class="ph ph-x"></i>
+        </button>
+        <div class="lightbox-content">
+            <button class="lightbox-prev" aria-label="Previous image">
+                <i class="ph ph-caret-left"></i>
+            </button>
+            <div class="lightbox-image-container">
+                <img id="lightbox-img" src="" alt="Сертификат" />
+                <div class="lightbox-counter">
+                    <span id="lightbox-current">1</span> / <span id="lightbox-total">13</span>
+                </div>
+            </div>
+            <button class="lightbox-next" aria-label="Next image">
+                <i class="ph ph-caret-right"></i>
+            </button>
+        </div>
+    </div>
+
+    <script src="script.js?v=20"></script>
 </body>
 
 </html>

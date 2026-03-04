@@ -935,6 +935,7 @@ img {
     height: 100%;
     border-radius: 50%;
     object-fit: cover;
+    object-position: top center;
     box-shadow: var(--shadow-sm);
     display: block;
 }

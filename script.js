@@ -86,11 +86,22 @@ document.addEventListener('DOMContentLoaded', () => {
     // Lightbox Gallery Logic
     // =========================================
     const certData = {
-        'oks': Array.from({ length: 13 }, (_, i) => `img/cert/oks/${i + 1}.webp`),
-        'lupa': Array.from({ length: 8 }, (_, i) => `img/cert/lupa/l${i + 1}.webp`),
+        'oks': [
+            "img/cert/oks/1.webp", "img/cert/oks/2.webp", "img/cert/oks/3.webp",
+            "img/cert/oks/4.webp", "img/cert/oks/5.webp", "img/cert/oks/6.webp",
+            "img/cert/oks/7.webp", "img/cert/oks/8.webp", "img/cert/oks/9.webp",
+            "img/cert/oks/10.webp", "img/cert/oks/11.webp", "img/cert/oks/12.webp",
+            "img/cert/oks/13.webp", "img/cert/oks/s1.webp", "img/cert/oks/s2.webp"
+        ],
+        'lupa': [
+            "img/cert/lupa/l1.webp", "img/cert/lupa/l2.webp", "img/cert/lupa/l3.webp",
+            "img/cert/lupa/l4.webp", "img/cert/lupa/l5.webp", "img/cert/lupa/l6.webp",
+            "img/cert/lupa/l7.webp", "img/cert/lupa/l8.webp"
+        ],
         'license': ['img/cert/license.png'],
         'sanepid': ['img/cert/license2.jpg', 'img/cert/license3.jpg'],
-        'reestr': Array.from({ length: 5 }, (_, i) => i === 0 ? `img/cert/reestr.png` : `img/cert/reestr${i + 1}.png`)
+        'reestr': ['img/cert/reestr.png', 'img/cert/reestr2.png', 'img/cert/reestr3.png', 'img/cert/reestr4.png', 'img/cert/reestr5.png'],
+        'centr': ['img/centr.webp']
     };
 
     let currentGallery = [];
@@ -101,14 +112,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const lightboxCurrent = document.getElementById('lightbox-current');
     const lightboxTotal = document.getElementById('lightbox-total');
 
-    const certBtns = document.querySelectorAll('.cert-btn, .gallery-trigger');
     const closeBtn = document.querySelector('.lightbox-close');
     const prevBtn = document.querySelector('.lightbox-prev');
     const nextBtn = document.querySelector('.lightbox-next');
 
     // Open Lightbox
-    certBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
+    document.addEventListener('click', (e) => {
+        const btn = e.target.closest('.cert-btn, .gallery-trigger');
+        if (btn && lightbox) {
             const doctorKey = btn.getAttribute('data-doctor') || btn.getAttribute('data-gallery');
             if (certData[doctorKey]) {
                 currentGallery = certData[doctorKey];
@@ -117,7 +128,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 lightbox.classList.add('active');
                 document.body.style.overflow = 'hidden'; // Prevent background scrolling
             }
-        });
+        }
     });
 
     // Update Image
