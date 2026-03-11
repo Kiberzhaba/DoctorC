@@ -107,6 +107,10 @@
         }
 
         .price-list tr {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
             border-bottom: 1px solid var(--border-color);
             transition: background-color 0.2s;
         }
@@ -125,7 +129,7 @@
         }
 
         .price-code {
-            color: var(--text-light);
+            color: var(--text-muted);
             font-size: 0.85rem;
             width: 15%;
             padding-right: 1rem !important;
@@ -134,7 +138,7 @@
 
         .price-name {
             color: var(--text-main);
-            width: 65%;
+            flex-grow: 1;
             padding-right: 1rem !important;
         }
 
@@ -143,7 +147,7 @@
             font-weight: 600;
             text-align: right;
             white-space: nowrap;
-            width: 20%;
+            margin-left: auto;
             padding-right: 0.5rem !important;
         }
 
@@ -436,6 +440,11 @@
                                             <td class="price-code">A04.12.005.002</td>
                                             <td class="price-name">Дуплексное сканирование артерий верхних конечностей
                                             </td>
+                                            <td class="price-value">2500 ₽</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="price-code">A04.12.005.004</td>
+                                            <td class="price-name">Дуплексное сканирование вен верхних конечностей</td>
                                             <td class="price-value">2500 ₽</td>
                                         </tr>
                                         <tr>

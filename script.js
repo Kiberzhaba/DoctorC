@@ -88,10 +88,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const certData = {
         'oks': [
             "img/cert/oks/ud.webp", "img/cert/oks/1.webp", "img/cert/oks/2.webp", "img/cert/oks/3.webp",
-            "img/cert/oks/4.webp", "img/cert/oks/5.webp", "img/cert/oks/6.webp",
-            "img/cert/oks/7.webp", "img/cert/oks/8.webp", "img/cert/oks/9.webp",
+            "img/cert/oks/4.webp", "img/cert/oks/5.webp",
+            "img/cert/oks/7.webp", "img/cert/oks/8.webp",
             "img/cert/oks/10.webp", "img/cert/oks/11.webp", "img/cert/oks/12.webp",
-            "img/cert/oks/13.webp", "img/cert/oks/s1.webp", "img/cert/oks/s2.webp"
+            "img/cert/oks/13.webp", "img/cert/oks/s1.webp"
         ],
         'lupa': [
             "img/cert/lupa/l1.webp", "img/cert/lupa/l2.webp", "img/cert/lupa/l3.webp",
